@@ -1,7 +1,6 @@
 % ====== Output ======
 
-% #show data/1.
-#show data/2. % TR added in conjunction with data(v_v,"?") in query
+#show data/1.
 
 #show mark/2.
 
