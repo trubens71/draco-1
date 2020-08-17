@@ -1,6 +1,4 @@
-ansunit
 black
-clyngor
 jsonschema
 mypy
 pandas

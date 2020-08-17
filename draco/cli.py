@@ -96,7 +96,7 @@ def main():  # pragma: no cover
         logger.info(f"Processing query: {args.query.name} ...")
 
         if args.type == QueryType.asp:
-            draco_query = args.query.read()
+            draco_query = args.query.read().split("\n")
         else:
             query_spec = json.load(args.query)
             d = args.base or os.path.dirname(args.query.name)
@@ -126,7 +126,7 @@ def main():  # pragma: no cover
             result = run(draco_query, debug=args.debug)
 
             if result:
-                print(result.as_vl(), file=args.out)
+                print(result.as_vl('v_v'), file=args.out)
                 logger.info(f"Cost: {result.cost}")
                 outname = (
                     "stringIO" if isinstance(args.out, io.StringIO) else args.out.name
