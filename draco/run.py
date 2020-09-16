@@ -135,7 +135,7 @@ def run_clingo(
     options = ["--outf=2", "--quiet=1,2,2", "--seed=0"]
 
     if (topk):
-        files.append('topk-py.lp')
+        # files.append('topk-py.lp') # verde - we will pass this in ourselves
         options.append('--opt-mode=OptN')
         options.append("--models={0}".format(k))
 
@@ -152,8 +152,9 @@ def run_clingo(
     )
 
     program = "\n".join(draco_query)
-    file_names = [os.path.join(DRACO_LP_DIR, f) for f in files]
-
+    # file_names = [os.path.join(DRACO_LP_DIR, f) for f in files] # verde: we pass in the lp files with their relative path
+    file_names = files # verde
+    
     asp_program = b"\n".join(map(load_file, file_names)) + program.encode("utf8")
 
     if debug:
@@ -161,7 +162,7 @@ def run_clingo(
             fd.write(program)
 
             logger.info('Debug ASP with "clingo %s %s"', " ".join(file_names), fd.name)
-    
+
     stdout, stderr = proc.communicate(asp_program)
     return (stderr, stdout)
 
